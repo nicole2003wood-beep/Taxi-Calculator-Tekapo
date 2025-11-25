@@ -10,18 +10,17 @@ st.subheader("Add Journey Details")
 
 for idx, journey in enumerate(st.session_state.journeys):
     st.markdown(f"### Journey {idx + 1}")
-    km_without = st.number_input("Enter km WITHOUT passengers:",  key=f"km_without_{idx}")
-    km_with = st.number_input("Enter km WITH passengers:", key=f"km_with_{idx}")
-    hours_waiting = st.number_input("Enter Hours driver will wait:", key=f"hours_waiting_{idx}")
+    km_without = st.number_input("Enter km WITHOUT passengers:", min_value=0.0, key=f"km_without_{idx}")
+    km_with = st.number_input("Enter km WITH passengers:", min_value=0.0, key=f"km_with_{idx}")
+    hours_waiting = st.number_input("Enter Hours driver will wait:", min_value=0.0, key=f"hours_waiting_{idx}")
     col1, col2 = st.columns(2)
     st.write("Enter time spent driving")
     with col1:
-
-          hours = st.number_input("Hours", key=f"hours_{idx}")
+          hours = st.number_input("Hours", min_value=0.0, key=f"hours_{idx}")
     with col2:
-          mins = st.number_input("Minutes", key=f"mins_{idx}")
+          mins = st.number_input("Minutes", min_value=0.0, max_value=59.0, key=f"mins_{idx}")
     hours_total = hours + (mins / 60)
-    st.session_state[f"hours_total_{idx}"] = hours_total
+    
     #store in journey dictionary 
     st.session_state.journeys[idx] = {
         'km_without': km_without,
